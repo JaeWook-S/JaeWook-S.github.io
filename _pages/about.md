@@ -20,4 +20,4 @@ I have conducted various research projects in the fields of robotics and compute
 Notably, I participated in RoboCup 2026, taking part in the humanoid robot soccer competition.
 In addition, I worked on the generation and classification of cancer cell images, addressing computer vision problems in the domain of medical imaging.
 
-For more details, please refer to my portfolio.
+For more details, please refer to my projects.
