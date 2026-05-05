@@ -38,11 +38,27 @@ Below, I describe the detailed technical approaches and preparation process for 
 <p><em>Overall system architecture of the humanoid robot software pipeline.</em></p>
 <img src="/images/k1_system_overview.png" alt="system overview">
 
+<h3>Vision</h3>
+<p><em>The system processes RGB-D camera input to extract visual information and converts it into robot-relative perception data for localization and decision-making.</em></p>
+
+<h3>Localization</h3>
+<p><em>
+The localization module estimates the robot pose using odometry and a particle filter based on field landmarks.</em></p>
+
+<h3>Decision-Making</h3>
+<p><em>The decision-making module performs role assignment and behavior selection based on game state information from perception and localization modules.</em></p>
+
+<h3>Control</h3>
+<p><em>Robot motion control was performed using the Booster Robotics SDK, where pre-defined control policies were utilized to trigger corresponding low-level API commands for locomotion and actions.</em></p>
+
+<h3>Communication</h3>
+<p><em>UDP broadcast communication is used to share game state information from the game controller as well as robot pose, ball position, and pass signals among robots.</em></p>
+
 <!-- 비전 파트 연구 내용 -->
- <h2>My Contribution - Vision</h2>
+<h2>My Contribution - Vision</h2>
 
  <!-- 모듈화 파트 연구 내용 -->
- <h2>My Contribution - modularization</h2>
+ <h2>My Contribution - Modularization</h2>
 
 
  <!-- BT 파트 연구 내용 -->
@@ -53,4 +69,3 @@ Below, I describe the detailed technical approaches and preparation process for 
 
 <!-- 결과 영상 -->
 <h2>Video & Outcome</h2>
-
