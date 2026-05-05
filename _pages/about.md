@@ -8,7 +8,7 @@ redirect_from:
 ---
 ### Welcome to Jaeyuk's page! 👋
 
-Hi! I am studying **AI** at Inha University. I am interested in  **🤖 Robotcis**, **📷 Computer Vision**
+Hi! I am studying **AI** at Inha University. I am interested in  **🤖 Robotics**, **📷 Computer Vision**
 <br>
 
 Motivated by my curiosity about the gap between human and robotic capabilities,  
