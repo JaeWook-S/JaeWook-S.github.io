@@ -90,13 +90,26 @@ Below, I describe the detailed technical approaches and preparation process for 
 
 </div>
 
-<!-- 로봇 좌표계 변환 -->
-<h3>Robot Coordinate Transformation</h3>
+<!-- 2. 로봇 좌표계 변환 -->
+<h3>3D-to-2D Ground Projection</h3>
 
+<p>To utilize detected objects for decision-making and localization, image-space detections were transformed into the robot base coordinate frame.</p>
+<p>For each detected object, we selected a representative point from the bounding box, either the center or the bottom-center point, depending on the object type. This point was then projected into 3D space using the camera calibration parameters.</p>
+<p>Specifically, we applied the camera extrinsic parameters along with the head-to-base transformation to convert the point into the robot's base frame.</p>
+<p>Considering that the RoboCup soccer field can be approximated as a 2D plane, we computed the intersection between the projection ray and the ground plane (z = 0). This intersection point was used as the final estimated position of the object in the robot coordinate system.</p>
+
+<!-- 3. Depth 처리 -->
 <h3>Depth Obstacle Detection</h3>
 
+
+<!-- 4. 데이터 수집 및 라벨링 -->
 <h3>Data Collection & Labeling</h3>
 
+<p>To build a robust training dataset, we collected publicly available data from the Bit-Bots team and Roboflow, resulting in approximately 16,000 real-world images.</p>
+<p>However, these datasets did not include scenarios specific to our robot platform. To address this gap, we additionally collected a private dataset tailored to our hardware setup and conducted manual labeling.</p>
+<p>To improve labeling efficiency, we leveraged a model pre-trained on the initial 16,000 images to perform first-pass inference. The predicted annotations were then refined and corrected, significantly reducing manual labeling effort.</p>
+
+<!-- 5. 학습 및 최적화 -->
 <h3>Train & Inference Optimization</h3>
 
 
