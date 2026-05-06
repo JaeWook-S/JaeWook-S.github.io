@@ -111,7 +111,13 @@ Below, I describe the detailed technical approaches and preparation process for 
 
 <!-- 5. 학습 및 최적화 -->
 <h3>Train & Inference Optimization</h3>
+<p>We trained an object detection model based on YOLOv8s to achieve a balance between accuracy and inference speed.</p>
+<p>The model's inference performance is summarized in the table below.</p>
 
+<img src="/images/main_images/yolo_inference_matrix.png" alt="performance_matrix">
+
+<p>To enable real-time deployment on the Jetson Orin NX platform, we further optimized the model by converting it into a TensorRT engine.</p>
+<p>Through this optimization, we achieved an inference speed of approximately 30 FPS, making the model suitable for real-time operation on the robot.</p>
 
  <!-- 모듈화 파트 연구 내용 -->
  <h2>My Contribution - Modularization</h2>
