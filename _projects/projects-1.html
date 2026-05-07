@@ -136,7 +136,9 @@ Below, I describe the detailed technical approaches and preparation process for 
 
  <!-- 모듈화 파트 연구 내용 -->
 <h2>My Contribution - Modularization</h2>
-
+<p>We developed our system based on the Booster Robotics demo code. Although components such as Vision, Communication, and the Behavior Tree (BT) framework were partially modularized, the core BT action logic itself was not properly modularized.</p>
+<p>To improve code scalability and maintainability, we reorganized the BT structure by separating each action into independent modules.</p>
+<p>This improvement made it much easier to add new actions and significantly simplified the development process. As a result, development became faster and more efficient, while code readability and reusability were also greatly improved.</p>
 
  <!-- BT 파트 연구 내용 -->
 <h2>My Contribution - Behavior Tree</h2>
