@@ -22,9 +22,15 @@ collection: projects
 <h2>Method</h2>
 <h3>Data Preprocessing</h3>
 
-<h3>Generative Model</h3>
+<p>I inspected the dataset quality and found that some images were severely affected by strong light reflections, making the cells barely distinguishable. These images were excluded from the dataset.</p>
+<p>In addition, for RFP images, training the model with raw data resulted in nearly black output images. Further analysis indicated that the red fluorescence signal in RFP images was relatively weak, preventing the model from learning meaningful features. To address this issue, I applied brightness enhancement as a preprocessing step to improve the visibility of fluorescent signals.</p>
+<p>Since the dataset was limited to approximately 400 images, I applied K-fold cross validation to improve generalization performance, with K set to 5.</p>
 
-<h3>Detection Model</h3>
+<h3>Image Generalization</h3>
+
+
+<h3>Cell Detection</h3>
+
 
 <!----------------------------------------  결과 ----------------------------------------->
 <h2>Result</h2>
@@ -32,26 +38,38 @@ collection: projects
 <!----------------------------------------  GUI ----------------------------------------->
 <h2>GUI</h2>
 
-<div style="display: flex; gap: 20px; align-items: flex-start;">
+<p>The goal of this study was to develop a GUI-based web system to enable more efficient analysis of DIC images collected from a cell biology laboratory.</p>
 
-  <div style="flex: 1; text-align: center;">
-    <img src="/images/main_images/icd_gui_page1.png" style="width: 100%; height: 300px; object-fit: contain;">
-  </div>
-
-  <div style="flex: 1; text-align: center;">
-    <img src="/images/main_images/icd_gui_page2.png" style="width: 100%; height: 300px; object-fit: contain;">
-  </div>
-
-</div>
+<p>
+On the first page, users can input basic experimental information and select the target cell type for analysis. The system supports SC, DC, or both cell types depending on the experimental setup.
+After clicking the Start button, model training and the detection pipeline are automatically executed using the uploaded data, and the results are forwarded to the second page.
+</p>
 
 <div style="display: flex; gap: 20px; align-items: flex-start;">
 
   <div style="flex: 1; text-align: center;">
-    <img src="/images/main_images/icd_gui_page3_none.png" style="width: 100%; height: 300px; object-fit: contain;">
+    <img src="/images/main_images/icd_gui_page1.png" style="width: 100%; height: 400px; object-fit: contain;">
   </div>
 
   <div style="flex: 1; text-align: center;">
-    <img src="/images/main_images/icd_gui_page3_color.png" style="width: 100%; height: 300px; object-fit: contain;">
+    <img src="/images/main_images/icd_gui_page2.png" style="width: 100%; height: 400px; object-fit: contain;">
   </div>
 
 </div>
+
+<p>The second page displays images organized in a plate-based format for easier inspection. When a specific image is selected, the system navigates to the third page, where all images belonging to the corresponding plate can be analyzed in detail. This includes SC/DC classification results, generated images, detection outputs, and temporal trend graphs.</p>
+
+<div style="display: flex; gap: 20px; align-items: flex-start;">
+
+  <div style="flex: 1; text-align: center;">
+    <img src="/images/main_images/icd_gui_page3_none.png" style="width: 100%; height: 400px; object-fit: contain;">
+  </div>
+
+  <div style="flex: 1; text-align: center;">
+    <img src="/images/main_images/icd_gui_page3_color.png" style="width: 100%; height: 400px; object-fit: contain;">
+  </div>
+
+</div>
+
+<p>This GUI system is currently being used in actual cell biology laboratory experiments and has been applied to real-world data analysis workflows.</p>
+
