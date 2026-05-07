@@ -5,4 +5,14 @@ excerpt: "Fluorescence image generation and cell state detection
 collection: projects
 ---
 
-This is an item in your portfolio. It can be have images or nice text. If you name the file .md, it will be parsed as markdown. If you name the file .html, it will be parsed as HTML. 
+<!----------------------------------------  프로젝트 소개 ----------------------------------------->
+<h2>Project Overview</h2>
+ICD (Immunogenic Cell Death) drugs have the distinctive advantage of enabling more clearly observable progression of cellular state changes compared to conventional anticancer therapies. In particular, when compared with apoptosis, ICD treatment exhibits more pronounced differences in both morphological changes and fluorescence expression patterns.
+
+Cancer cells treated with ICD drugs gradually transition from a swollen cell state over time and eventually progress into dead cells. During this process, two key fluorescence signals are observed: GFP (green fluorescence) is strongly expressed in swollen cells, while RFP (red fluorescence) becomes dominant in dead cells. Based on this GFP–RFP expression pattern, swollen cells (sc) and dead cells (dc) can be distinguished.
+
+However, in practical analysis workflows, DIC images and GFP/RFP fluorescence images must be separately acquired, aligned, and merged before interpretation, making the data collection and processing pipeline cumbersome and time-consuming.
+
+To address this issue, this project develops a generative model that predicts GFP and RFP fluorescence images directly from DIC images alone. The generated GFP and RFP images are then combined with the original DIC image to construct multi-modal inputs, which are used to automatically detect sc/dc cell states.
+
+Finally, a user-friendly interface is implemented using the Gradio library, enabling an accessible and practical system that can be readily applied in real-world research environments.
