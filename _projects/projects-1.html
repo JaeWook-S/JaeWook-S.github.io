@@ -134,13 +134,13 @@ Below, I describe the detailed technical approaches and preparation process for 
 <p>To enable real-time deployment on the Jetson Orin NX platform, we further optimized the model by converting it into a TensorRT engine.</p>
 <p>Through this optimization, we achieved an inference speed of approximately 30 FPS, making the model suitable for real-time operation on the robot.</p>
 
- <!-- 모듈화 파트 연구 내용 -->
+<!---------------------------------------- 모듈화 파트 연구 내용 ----------------------------------------->
 <h2>My Contribution - Modularization</h2>
 <p>We developed our system based on the Booster Robotics demo code. Although components such as Vision, Communication, and the Behavior Tree (BT) framework were partially modularized, the core BT action logic itself was not properly modularized.</p>
 <p>To improve code scalability and maintainability, we reorganized the BT structure by separating each action into independent modules.</p>
 <p>This improvement made it much easier to add new actions and significantly simplified the development process. As a result, development became faster and more efficient, while code readability and reusability were also greatly improved.</p>
 
- <!-- BT 파트 연구 내용 -->
+<!---------------------------------------- BT 파트 연구 내용 ----------------------------------------->
 <h2>My Contribution - Behavior Tree</h2>
 
 
@@ -162,3 +162,11 @@ Below, I describe the detailed technical approaches and preparation process for 
     </iframe>
   </div>
 </div>
+
+<h3 style="margin-bottom:10px; text-align:left;">
+  Inha-United Team Description Paper</h3>
+<iframe 
+    src="/images/main_images/tdp.pdf" 
+    width="100%" 
+    height="600px">
+</iframe>
