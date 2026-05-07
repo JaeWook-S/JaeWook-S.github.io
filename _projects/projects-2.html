@@ -7,10 +7,22 @@ collection: projects
 
 <!----------------------------------------  프로젝트 소개 ----------------------------------------->
 <h2>Project Overview</h2>
-<p>ICD (Immunogenic Cell Death) drugs have the distinctive advantage of enabling more clearly observable progression of cellular state changes compared to conventional anticancer therapies. In particular, when compared with apoptosis, ICD treatment exhibits more pronounced differences in both morphological changes and fluorescence expression patterns.</p>
+
+<p>This research analyzes cellular state transitions in cancer cells using Immunogenic Cell Death (ICD), an immunotherapy approach. ICD-treated cells undergo a stepwise progression from normal cells → swollen cells (S.C) → dead cells (D.C).</p>
+<p>Compared to conventional apoptosis, ICD exhibits more clearly distinguishable cellular state changes, showing a characteristic crossover pattern between S.C and D.C populations over time.</p>
 <img src="/images/main_images/apoptosis_icd.png" alt="drugs compared">
 
-<p>Cancer cells treated with ICD drugs gradually transition from a swollen cell state over time and eventually progress into dead cells. During this process, two key fluorescence signals are observed: GFP (green fluorescence) is strongly expressed in swollen cells, while RFP (red fluorescence) becomes dominant in dead cells. Based on this GFP–RFP expression pattern, swollen cells (sc) and dead cells (dc) can be distinguished.</p>
-<p>However, in practical analysis workflows, DIC images and GFP/RFP fluorescence images must be separately acquired, aligned, and merged before interpretation, making the data collection and processing pipeline cumbersome and time-consuming.</p>
-<p>To address this issue, this project develops a generative model that predicts GFP and RFP fluorescence images directly from DIC images alone. The generated GFP and RFP images are then combined with the original DIC image to construct multi-modal inputs, which are used to automatically detect sc/dc cell states.</p>
-<p>Finally, a user-friendly interface is implemented using the Gradio library, enabling an accessible and practical system that can be readily applied in real-world research environments.</p>
+<p>Cell states are identified using a combination of DIC images and GFP/RFP fluorescence images. GFP highlights swollen cells, while RFP indicates dead cells, enabling state classification.</p>
+<p>However, acquiring and aligning DIC, GFP, and RFP images requires long-term experiments of up to 48 hours, making the workflow time-consuming and inefficient.</p>
+<img src="/images/main_images/icd_data_type.png" alt="icd data type">
+
+<p>Therefore, this research aims to generate GFP and RFP fluorescence images directly from DIC images and use them to automatically classify swollen (S.C) and dead (D.C) cells.</p>
+
+<!----------------------------------------  방법 소개 ----------------------------------------->
+<h2>Method</h2>
+
+<!----------------------------------------  결과 ----------------------------------------->
+<h2>Result</h2>
+
+<!----------------------------------------  GUI ----------------------------------------->
+<h2>GUI</h2>
