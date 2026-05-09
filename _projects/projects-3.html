@@ -10,13 +10,16 @@ collection: projects
 
 <p>This research analyzes cellular state transitions in cancer cells using Immunogenic Cell Death (ICD), an immunotherapy approach. ICD-treated cells undergo a stepwise progression from normal cells → swollen cells (S.C) → dead cells (D.C).</p>
 <p>Compared to conventional apoptosis, ICD exhibits more clearly distinguishable cellular state changes, showing a characteristic crossover pattern between S.C and D.C populations over time.</p>
+
 <img src="/images/main_images/apoptosis_icd.png" alt="drugs compared">
 
 <p>Cell states are identified using a combination of DIC images and GFP/RFP fluorescence images. GFP highlights swollen cells, while RFP indicates dead cells, enabling state classification.</p>
 <p>However, acquiring and aligning DIC, GFP, and RFP images requires long-term experiments of up to 48 hours, making the workflow time-consuming and inefficient.</p>
+
 <img src="/images/main_images/icd_data_type.png" alt="icd data type">
 
-<p>Therefore, this research aims to generate GFP and RFP fluorescence images directly from DIC images and use them to automatically classify swollen (S.C) and dead (D.C) cells.</p>
+<p>To address this limitation, prior work proposed generating GFP and RFP fluorescence images directly from DIC images and using them to classify swollen (S.C) and dead (D.C) cells.</p>
+<p>As a follow-up study, we extend this approach by improving data preprocessing, enhancing the model architecture, and developing a graphical user interface (GUI) for more efficient and practical use.</p>
 
 <!----------------------------------------  방법 소개 ----------------------------------------->
 <h2>Method</h2>
@@ -69,10 +72,13 @@ collection: projects
 
 <!-- 세포 감지 모델 -->
 <h3>Cell Detection</h3>
-
+<p>Generated GFP and RFP images are combined with the DIC image and used as input to the YOLOv8n model to detect S.C and D.C. 
+  In addition, we compare detection performance across different input configurations, including DIC-only, GFP-only, and the combined GFP+RFP inputs.</p> 
+<img src="/images/main_images/cell_detection.png" alt="cell detection">
 
 <!----------------------------------------  결과 ----------------------------------------->
 <h2>Result</h2>
+
 
 <!----------------------------------------  GUI ----------------------------------------->
 <h2>GUI</h2>
