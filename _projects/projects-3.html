@@ -20,15 +20,54 @@ collection: projects
 
 <!----------------------------------------  방법 소개 ----------------------------------------->
 <h2>Method</h2>
+<!-- 데이터 전처리 -->
 <h3>Data Preprocessing</h3>
 
 <p>I inspected the dataset quality and found that some images were severely affected by strong light reflections, making the cells barely distinguishable. These images were excluded from the dataset.</p>
 <p>In addition, for RFP images, training the model with raw data resulted in nearly black output images. Further analysis indicated that the red fluorescence signal in RFP images was relatively weak, preventing the model from learning meaningful features. To address this issue, I applied brightness enhancement as a preprocessing step to improve the visibility of fluorescent signals.</p>
 <p>Since the dataset was limited to approximately 400 images, I applied K-fold cross validation to improve generalization performance, with K set to 5.</p>
 
+<!-- 생성 모델 -->
 <h3>Image Generalization</h3>
 
+<p>In this study, we adopt the 
+  <a href="https://arxiv.org/pdf/2106.16031" target="_blank">ResViT</a> 
+  architecture as a baseline and modify it into a CNN-based model by considering dataset size and computational efficiency. 
+  Although ResViT supports both CNN- and Transformer-based designs, we select the CNN-based variant due to limited data and computational resources.</p>
 
+<p><strong>The main contributions of this work are as follows:</strong></p>
+
+<ol>
+  <li>
+    <strong>Simplified Bottleneck Structure</strong><br>
+    The original ResViT employs nine bottleneck blocks. 
+    However, to reduce the risk of overfitting under limited data conditions, we decrease the number of bottleneck blocks to four.
+  </li>
+
+  <li>
+    <strong>Integration of Attention Module (CBAM)</strong><br>
+    We incorporate the Convolutional Block Attention Module (CBAM) into the bottleneck to enhance feature representation.
+    <ul>
+      <li><strong>Spatial Attention:</strong> Emphasizes informative spatial regions by assigning higher weights to areas where cells are likely to exist.</li>
+      <li><strong>Channel Attention:</strong> Adaptively reweights channel-wise features to highlight more discriminative representations.</li>
+    </ul>
+  </li>
+
+  <li>
+    <strong>Skip Connections (Encoder–Decoder)</strong><br>
+    Skip connections are introduced between the encoder and decoder to preserve low-level spatial information and improve reconstruction performance.
+  </li>
+
+  <li>
+    <strong>Perceptual Loss (VGG Loss)</strong><br>
+    Instead of relying solely on pixel-wise loss, we employ VGG-based perceptual loss to encourage the reconstruction of visually meaningful features.
+  </li>
+</ol>
+
+<p>The overall architecture of the proposed model is illustrated in the figure above.</p>
+<img src="/images/main_images/resvit.png" alt="resvit">
+
+<!-- 세포 감지 모델 -->
 <h3>Cell Detection</h3>
 
 
