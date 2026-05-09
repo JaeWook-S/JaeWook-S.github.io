@@ -142,9 +142,41 @@ Below, I describe the detailed technical approaches and preparation process for 
 
 <!---------------------------------------- BT 파트 연구 내용 ----------------------------------------->
 <h2>My Contribution - Behavior Tree</h2>
+<!-- 머리 제어 -->
+<h3>Head Control</h3>
+<p>Head control is performed in two main situations: when the ball position is unknown, and when a detected ball is being tracked.</p>
 
+<p>When the ball position is unknown, the head actively searches for the ball by moving its pitch and yaw in predefined patterns to cover a wider area. 
+  Once the ball is detected, the search action is immediately stopped, and the system transitions to the tracking phase.</p>
+<!-- 영상 넣을 예정-->
+ 
+<p>During the tracking phase, the head adjusts its pitch and yaw so that the bottom-center point of the detected bounding box remains within a certain offset range around the center of the image frame. 
+  This ensures that the ball stays stably near the center of the camera view.</p>
 
-<!-- 결과 영상 -->
+<img src="/images/main_images/ball_track.png" alt="ball track">
+
+<!-- Chase Target -->
+<h3>Chase Target Point</h3>
+<p>The chase target is determined based on the difference between the robot’s current orientation and the desired kick direction.</p>
+
+<p>If the angular difference between the robot’s heading (theta) and the kick direction is below a certain threshold, the target is set to a point located at a fixed distance (dist) behind the ball. 
+  This point lies along the kick direction vector.</p>
+
+<p>On the other hand, if the angular difference is large, a circular region centered at the ball with a radius of safeDist is considered. 
+  In this case, a tangent direction from the robot’s current position to the circle is computed, and the target is selected along this direction.</p>
+<img src="/images/main_images/chase_target.png" alt="chase target">
+
+<h3>Kick Motion</h3>
+<p>The kick motion is executed by invoking a policy provided by Booster Robotics through the SDK. 
+  It takes the kick direction, the ball position in the robot coordinate frame, and the desired power as inputs, and performs vision-based dribbling and kicking.</p>
+
+<p>The policy consists of an <i>adjust</i> phase, which refines and aligns the robot’s posture based on the ball position, and a <i>kick</i> phase, which executes the actual strike.</p>
+
+<video autoplay loop muted playsinline width="600">
+  <source src="images/main_images/kick_motion.mp4" type="video/mp4">
+</video>
+
+<!-------------------------------------------- 결과 영상 --------------------------------------------->
 <h2>Video & Outcome</h2>
 
 <div style="width:80%; margin:0 0 40px;">
