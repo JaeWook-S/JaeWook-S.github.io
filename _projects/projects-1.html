@@ -128,8 +128,18 @@ Below, I describe the detailed technical approaches and preparation process for 
 <h3>Train & Inference Optimization</h3>
 <p>We trained an object detection model based on YOLOv8s to achieve a balance between accuracy and inference speed.</p>
 <p>The model's inference performance is summarized in the table below.</p>
-
-<img src="/images/main_images/yolo_inference_matrix.png" alt="performance_matrix">
+<!-- 
+<img src="/images/main_images/yolo_inference_matrix.png" alt="performance_matrix"> -->
+<table border="1">
+<tr><th>Class</th><th>Precision</th><th>Recall</th><th>mAP50</th><th>mAP50-95</th></tr>
+<tr><td>all</td><td>0.943</td><td>0.940</td><td>0.970</td><td>0.702</td></tr>
+<tr><td>Ball</td><td>0.982</td><td>0.974</td><td>0.992</td><td>0.864</td></tr>
+<tr><td>Goalpost</td><td>0.950</td><td>0.937</td><td>0.964</td><td>0.733</td></tr>
+<tr><td>LCross</td><td>0.927</td><td>0.925</td><td>0.960</td><td>0.597</td></tr>
+<tr><td>TCross</td><td>0.908</td><td>0.929</td><td>0.962</td><td>0.617</td></tr>
+<tr><td>XCross</td><td>0.939</td><td>0.924</td><td>0.966</td><td>0.617</td></tr>
+<tr><td>Opponent</td><td>0.949</td><td>0.951</td><td>0.977</td><td>0.782</td></tr>
+</table>
 
 <p>To enable real-time deployment on the Jetson Orin NX platform, we further optimized the model by converting it into a TensorRT engine.</p>
 <p>Through this optimization, we achieved an inference speed of approximately 30 FPS, making the model suitable for real-time operation on the robot.</p>
