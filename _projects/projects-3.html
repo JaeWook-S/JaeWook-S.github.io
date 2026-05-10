@@ -19,7 +19,8 @@ collection: projects
 <img src="/images/main_images/icd_data_type.png" alt="icd data type">
 
 <p>To address this limitation, prior work proposed generating GFP and RFP fluorescence images directly from DIC images and using them to classify swollen (S.C) and dead (D.C) cells.</p>
-<p>As a follow-up study, we extend this approach by improving data preprocessing, enhancing the model architecture, and developing a graphical user interface (GUI) for more efficient and practical use.</p>
+<p>As a follow-up study, we improve the data preprocessing, enhance the model architecture, and develop a graphical user interface (GUI) for more efficient and practical use. 
+  In addition, our modified model achieves better performance with fewer epochs, while significantly reducing the overall training time.</p>
 
 <!----------------------------------------  방법 소개 ----------------------------------------->
 <h2>Method</h2>
@@ -65,6 +66,11 @@ collection: projects
     <strong>Perceptual Loss (VGG Loss)</strong><br>
     Instead of relying solely on pixel-wise loss, we employ VGG-based perceptual loss to encourage the reconstruction of visually meaningful features.
   </li>
+  
+  <li>
+    <strong>Training Efficiency Improvement</strong><br>
+    These modifications not only improve performance but also significantly reduce training time, enabling more efficient model training with fewer epochs.
+  </li>
 </ol>
 
 <p>The overall architecture of the proposed model is illustrated in the figure above.</p>
@@ -78,7 +84,24 @@ collection: projects
 
 <!----------------------------------------  결과 ----------------------------------------->
 <h2>Result</h2>
+<p>This table presents a performance comparison between the inference results of the baseline ResViT model and my modified model.</p>
 
+<table border="1">
+  <thead><tr><th>Model</th><th>Epoch</th><th>SSIM (Original)</th><th>PSNR (Original)</th><th>F1 Score</th><th>IoU</th><th>SSIM (Masked)</th><th>PSNR (Masked)</th></tr></thead>
+  <tbody><tr><td>Baseline</td><td>1970</td><td><strong>0.928</strong></td><td>30.87</td><td>0.576</td><td>0.407</td><td>0.918</td><td>40.11</td></tr>
+         <tr><td>Ours</td><td><strong>165</strong></td><td>0.909</td><td><strong>31.04</strong></td><td><strong>0.598</strong></td><td><strong>0.430</strong></td><td><strong>0.919</strong></td><td><strong>40.13</strong></td></tr></tbody>
+</table>
+
+<p>Additionally, the following table compares performance under different input configurations, including DIC-only input, DIC+GFP combined input, and DIC+GFP+RFP combined input, in order to analyze the effect of input composition on model performance.</p>
+
+<table border="1">
+  <thead><tr><th>Model</th><th>mAP50</th><th>Precision</th><th>Recall</th></tr></thead>
+  <tbody>
+    <tr><td>DIC</td><td>0.434</td><td>0.399</td><td>0.563</td></tr>
+    <tr><td>DIC + ResViT-GFP</td><td>0.458</td><td>0.424</td><td>0.567</td></tr>
+    <tr><td>DIC + ResViT-GFP + ResViT-RFP</td><td><strong>0.462</strong></td><td><strong>0.425</strong></td><td><strong>0.575</strong></td></tr>
+  </tbody>
+</table>
 
 <!----------------------------------------  GUI ----------------------------------------->
 <h2>GUI</h2>
