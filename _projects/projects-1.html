@@ -101,10 +101,10 @@ Below, I describe the detailed technical approaches and preparation process for 
 <!-- 3. Depth 처리 -->
 <h3>Depth Obstacle Detection</h3>
 
-<p>To detect obstacles that were not recognized by the object detection model, depth information was additionally utilized.</p>
-<p>For real-time performance, point cloud downsampling was applied, and the space was divided into 20cm × 20cm grids. The number of point cloud points within each grid was counted, and obstacles were determined based on a predefined threshold.</p>
-<p>If the number of points inside a grid exceeded the threshold, the corresponding region was classified as an obstacle.</p>
-
+<p>To address missed obstacle detections from a deep learning-based object detection model, depth information was additionally utilized. The depth data was converted into a point cloud, and the space was discretized into grid cells. Within each grid, obstacles were further detected based on the number of point cloud points.</p>
+<p>However, a simple point-count-based filtering approach suffered from frequent false positives due to sensor noise. To address this issue, the spatial distribution of points within each grid was analyzed by constructing a covariance matrix and performing eigenvalue decomposition.
+   A filtering method was then proposed, where regions with similar eigenvalue ratios were regarded as noise and removed. As a result, perception accuracy was improved.</p>
+   
 <div style="display: flex; gap: 20px; align-items: flex-start;">
 
   <div style="flex: 1; text-align: center;">
