@@ -16,4 +16,184 @@ The action space is composed of five discrete steering commands: sharp left, lef
 
 <!---------------------------------------- 개선 사항 ----------------------------------------->
 <h2>Improvements</h2>
-<h3>PID Controller</h3>
+
+<h3>Reward Shaping</h3>
+
+<p>
+The original F1TENTH environment provides a sparse reward signal based primarily on episode duration.
+To accelerate learning and encourage race-oriented behavior, I redesigned the reward function using track geometry, vehicle heading, and LiDAR observations.
+</p>
+
+<h4>Waypoint-Based Progress Reward</h4>
+
+<p>
+A centerline waypoint sequence was extracted from the race track and used to estimate driving progress.
+At every step, the nearest waypoint and its successor were identified, allowing the agent to receive rewards for moving toward the racing line.
+</p>
+
+<p>
+The reward increases when the vehicle reduces its distance to the upcoming waypoint, encouraging consistent forward progress around the circuit.
+</p>
+
+<h4>Direction Alignment Reward</h4>
+
+<p>
+To discourage spinning and reverse driving, I computed the cosine similarity between:
+</p>
+
+<ul>
+  <li>The vehicle heading vector</li>
+  <li>The local track direction vector derived from neighboring waypoints</li>
+</ul>
+
+<p>
+Positive rewards were given when the vehicle aligned with the track direction, while strong penalties were applied when driving in the opposite direction.
+</p>
+
+<h4>Velocity Reward</h4>
+
+<p>
+Driving quickly is essential in autonomous racing.
+The reward function therefore scales with forward velocity, but only when the vehicle is aligned with the track direction.
+This prevents the agent from exploiting the reward by accelerating while facing incorrect directions.
+</p>
+
+<h4>Centerline Tracking Penalty</h4>
+
+<p>
+To improve trajectory quality, a penalty proportional to the lateral distance from the centerline was introduced.
+This encourages the vehicle to remain close to the racing line and reduces unstable drifting behavior.
+</p>
+
+<h4>LiDAR-Based Safety Penalty</h4>
+
+<p>
+The minimum forward LiDAR distance was monitored to detect imminent collisions.
+When obstacles or walls were detected within a critical range, the agent received a large negative reward.
+This encouraged earlier avoidance maneuvers and safer corner entry behavior.
+</p>
+
+<h4>Collision Penalty</h4>
+
+<p>
+A substantial terminal penalty was assigned whenever the vehicle collided with track boundaries.
+This significantly reduced crash frequency during training and improved policy robustness.
+</p>
+
+<h3>Model & Learning Skills</h3>
+<h4>State Representation Enhancement</h4>
+
+<p>
+The baseline model directly used 405-dimensional LiDAR observations.
+To improve learning efficiency, I applied LiDAR sector-based min-pooling,
+reducing the observation dimension to 108 representative sectors.
+</p>
+
+<p>
+In addition to LiDAR data, I augmented the state with:
+</p>
+
+<ul>
+  <li>Current vehicle velocity</li>
+  <li>Previous steering command</li>
+</ul>
+
+<p>
+This allowed the agent to infer vehicle dynamics and make smoother control decisions.
+The final state dimension was reduced from 405 to 110 while preserving important environmental information.
+</p>
+
+<h4>Double DQN</h4>
+
+<p>
+The baseline relied on a standard DQN architecture, which is known to suffer from overestimation bias.
+To address this issue, I implemented Double DQN (DDQN), separating action selection and target evaluation.
+This improved value estimation stability and reduced policy degradation during training.
+</p>
+
+<h4>Prioritized Experience Replay (PER)</h4>
+
+<p>
+Instead of uniformly sampling experiences from the replay buffer,
+I introduced Prioritized Experience Replay.
+Transitions with larger temporal-difference (TD) errors were sampled more frequently,
+allowing the agent to focus on more informative experiences and accelerate learning.
+</p>
+
+<h4>4-Step Temporal Difference Learning</h4>
+
+<p>
+The baseline used one-step TD updates.
+I extended this to 4-step TD learning, enabling rewards to propagate more efficiently across time.
+This significantly improved long-term credit assignment and accelerated convergence.
+</p>
+
+<h4>Steering Smoothing</h4>
+
+<p>
+Discrete steering commands often produce oscillatory behavior at high speeds.
+To reduce abrupt steering changes, I applied an exponential moving average (EMA) filter to steering actions.
+This generated smoother trajectories and improved vehicle stability during cornering.
+</p>
+
+<h4>Curriculum Learning for High-Speed Driving</h4>
+
+<p>
+Learning aggressive high-speed driving from scratch is difficult.
+To address this challenge, I designed a curriculum learning strategy.
+The agent initially trained at a lower maximum speed and gradually increased its speed limit after repeatedly completing successful laps.
+</p>
+
+<p>
+Whenever a new speed stage was reached:
+</p>
+
+<ul>
+  <li>The replay buffer was soft-reset to remove outdated low-speed experiences.</li>
+  <li>Exploration rate was temporarily increased.</li>
+  <li>The policy was fine-tuned for the new driving regime.</li>
+</ul>
+
+<p>
+This progressive training strategy enabled the agent to safely transition from stable driving to aggressive racing behavior.
+</p>
+
+<!---------------------------------------- 결과 ----------------------------------------->
+<h2>Results</h2>
+
+<p>
+The baseline DQN agent required approximately <b>120 seconds</b> to complete a lap on the Oschersleben circuit.
+After applying the proposed improvements, the trained agent achieved a best lap time of approximately <b>57 seconds</b>.
+</p>
+
+<p>
+This corresponds to:
+</p>
+
+<ul>
+  <li>~52.5% reduction in lap time</li>
+  <li>~2.1× faster track completion</li>
+  <li>Improved stability during cornering</li>
+  <li>Reduced steering oscillation at high speeds</li>
+  <li>More robust policy convergence during training</li>
+</ul>
+
+<p>
+These results demonstrate that combining improved state representation,
+Double DQN, Prioritized Experience Replay, multi-step learning,
+and curriculum-based speed scheduling can substantially improve autonomous racing performance.
+</p>
+
+<!---------------------------------------- 주행 영상 ----------------------------------------->
+<h2>Demonstration Video</h2>
+
+<div style="text-align:center;">
+  <video width="900" controls>
+    <source src="/images/main_images/f1tenth_57.830.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</div>
+
+<p align="center">
+Best Lap Time: <b>57.580 sec</b> (Improved from 120 sec baseline)
+</p>
